@@ -21,7 +21,7 @@
         class="input"
         placeholder="Password Here :)"
       />
-      <lable for="password" class="label">Password</lable>
+      <label for="password" class="label">Password</label>
     </div>
 
     <div class="strength" />
