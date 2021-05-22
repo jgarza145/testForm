@@ -1,6 +1,7 @@
 <script>
   let strength = 0;
   let validations = [];
+  let showpassword = false;
 
   function validatePassword(e) {
     const password = e.target.value;
@@ -24,13 +25,21 @@
 
     <div class="field">
       <input
-        type="password"
+        type={showpassword ? "text" : "password"}
         name="password"
         class="input"
         placeholder=""
         on:input={validatePassword}
       />
       <label for="password" class="label">Password</label>
+
+      <span
+        class="toggle-password"
+        on:mouseenter={() => (showpassword = true)}
+        on:mouseleave={() => (showpassword = false)}
+      >
+        {showpassword ? "😉" : "👀"}
+      </span>
     </div>
 
     <div class="strength">
@@ -40,12 +49,12 @@
       <span class="bar bar-4" class:bar-show={strength > 3} />
     </div>
 
-    <ul>
-      <li>{validations[0] ? "✔" : "❌"}Must be at least 8 characters long</li>
-      <li>{validations[1] ? "✔" : "❌"}Must contain a capital letter</li>
-      <li>{validations[2] ? "✔" : "❌"}must contain a number</li>
+    <ul class="list">
+      <li>{validations[0] ? "✅" : "❌"}Must be at least 8 characters long</li>
+      <li>{validations[1] ? "✅" : "❌"}Must contain a capital letter</li>
+      <li>{validations[2] ? "✅" : "❌"}Must contain a number</li>
       <li>
-        {validations[3] ? "✔" : "❌"}must contain one special character (i.e. %
+        {validations[3] ? "✅" : "❌"}Must contain one special character (i.e. %
         * @ &)
       </li>
     </ul>
@@ -133,6 +142,10 @@
     box-shadow: inset 0px 20px #1f1f1f;
   }
 
+  .list {
+    color: var(--text-color);
+  }
+
   .bar-show {
     box-shadow: none;
   }
@@ -151,5 +164,13 @@
 
   .bar-4 {
     background: linear-gradient(to right, yellowgreen, green);
+  }
+
+  .toggle-password {
+    position: absolute;
+    cursor: help;
+    font-size: 0.8rem;
+    right: 0.25rem;
+    bottom: 0.5rem;
   }
 </style>
